@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
 
         android:text="@string/app_name"
-        android:textSize="30dp"
+        android:textSize="30sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,10 +23,22 @@
         app:layout_constraintVertical_bias="0.04" />
 
     <EditText
+        android:id="@+id/edt_thought"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:text="Send"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_thought" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
