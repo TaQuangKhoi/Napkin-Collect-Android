@@ -24,8 +24,12 @@
 
     <EditText
         android:id="@+id/edt_thought"
+
+        android:inputType="text"
+        android:hint="Enter your thought"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="0dp" />
