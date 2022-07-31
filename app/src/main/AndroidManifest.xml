@@ -17,11 +17,7 @@
             android:name=".GetCode"
             android:exported="true"
             android:windowSoftInputMode="stateVisible|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -32,7 +28,11 @@
             windowSoftInputMode giúp đẩy các View lên trên bản phím ảo
             (See more)[https://android-developers.googleblog.com/2009/04/updating-applications-for-on-screen.html]
             -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>
