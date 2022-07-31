@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".GetCode">
     <TextView
-        android:id="@+id/tv_code"
+        android:id="@+id/tv_napkin_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Code"
+        android:text="Napkin Login"
         android:textSize="30sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
 
         android:inputType="text"
         android:imeOptions="actionSend|flagNoEnterAction"
-        android:hint="Enter your thought"
+        android:hint="Enter your code"
 
         android:layout_width="match_parent"
         android:layout_height="300dp"
