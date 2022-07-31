@@ -26,6 +26,7 @@
         android:id="@+id/edt_thought"
 
         android:inputType="text"
+        android:imeOptions="actionSend|flagNoEnterAction"
         android:hint="Enter your thought"
 
         android:layout_width="match_parent"
