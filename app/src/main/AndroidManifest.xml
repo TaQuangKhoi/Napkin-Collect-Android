@@ -14,18 +14,25 @@
         android:theme="@style/Theme.Napkin"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="stateVisible|adjustResize">
-            <!-- windowSoftInputMode giúp đẩy các View lên trên bản phím ảo
-            (See more)[https://android-developers.googleblog.com/2009/04/updating-applications-for-on-screen.html]
-            -->
-
+            android:name=".GetCode"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+
+            <!--
+            windowSoftInputMode giúp đẩy các View lên trên bản phím ảo
+            (See more)[https://android-developers.googleblog.com/2009/04/updating-applications-for-on-screen.html]
+            -->
+
+
         </activity>
     </application>
 
