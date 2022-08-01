@@ -14,9 +14,12 @@
         android:theme="@style/Theme.Napkin"
         tools:targetApi="31">
         <activity
+            android:name=".ChooseLoginType"
+            android:exported="false" />
+        <activity
             android:name=".GetCode"
             android:exported="true"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
