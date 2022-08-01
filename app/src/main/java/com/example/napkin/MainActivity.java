@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String ReadToken() {
-        String line;
+        String line; // chứa text từ file
         String token = "";
         try {
             FileInputStream fis = new FileInputStream(f_token);
