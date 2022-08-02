@@ -3,10 +3,14 @@ package com.example.napkin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Bundle;
+
+// import từ widget các View
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -32,38 +36,42 @@ public class MainActivity extends AppCompatActivity {
         etThought = findViewById(R.id.et_thought);
 
         // Chạy hàm tìm code, uid, token
-        if(FindCode() && FindUid() && FindToken())
-        {
-            // Nếu tìm thấy code, uid, token thì gán giá trị cho các biến
-            code = ReadCode();
-            uid = ReadUid();
-            token = ReadToken();
-        }
-        else
-        {
-            // Nếu không tìm thấy code, uid, token thì gán giá trị mặc định cho các biến
-            code = "";
-            uid = "";
-            token = "";
 
-            // Chạy Activity Đăng nhập
+        try {
+            if(FindCode() && FindUid() && FindToken())
+            {
+                // Nếu tìm thấy code, uid, token thì gán giá trị cho các biến
+                code = ReadCode();
+                uid = ReadUid();
+                token = ReadToken();
+            }
+            else
+            {
+                // Nếu không tìm thấy code, uid, token thì gán giá trị mặc định cho các biến
+
+                // Chạy Activity Đăng nhập
+                Intent intent = new Intent(MainActivity.this, ChooseLoginType.class);
+                startActivity(intent);
+
+            }
         }
+        catch (Exception e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
 
         // Cái này dùng để làm gì?
         ContextWrapper contextWrapper = new ContextWrapper(
                 getApplicationContext());
 
-        Bundle bd = getIntent().getExtras();
-        if(bd != null) {
-            String code = bd.getString("code");
-            etThought.setText(code);
-        }
+
     }
 
     private String ReadToken() {
         String line; // chứa text từ file
         String token = "";
         try {
+
             FileInputStream fis = new FileInputStream(f_token);
             DataInputStream in = new DataInputStream(fis);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
