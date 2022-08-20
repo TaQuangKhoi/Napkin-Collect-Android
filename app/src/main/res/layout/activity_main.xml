@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_weight="6"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,6 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/app_name"
         android:textSize="30sp"
+        android:layout_weight="1"
         />
 
     <EditText
@@ -25,7 +27,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="300dp"
-
+        android:layout_weight="4"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
@@ -34,6 +36,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
          />
 
 </LinearLayout>
