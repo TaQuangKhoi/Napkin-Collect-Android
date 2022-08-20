@@ -122,7 +122,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SendThought(String code, String uid, String token, String thought) {
+    @Nullable
+    private Void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
+//        Toast.makeText(this, "Nhân nút rồi", Toast.LENGTH_SHORT).show();
+        HttpURLConnection urlconnection = null;
 
+        try {
+            JSONObject postData = new JSONObject();
+            postData.put("email", email);
+            postData.put("token", token);
+            postData.put("thought", thought);
+            postData.put("sourceUrl", sourceUrl);
+
+
+            URL url = new URL("https://app.napkin.one/api/createThought");
+            urlconnection = (HttpURLConnection) url.openConnection();
+            urlconnection.setRequestProperty("Content-Type", "application/json");
+            urlconnection.setRequestMethod("POST");
+            urlconnection.setDoOutput(true);
+            urlconnection.setDoInput(true);
+            urlconnection.setChunkedStreamingMode(0);
+            Toast.makeText(this, "gửi thành công nè", Toast.LENGTH_SHORT).show();
+
+            /*OutputStream out = new BufferedOutputStream(urlconnection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    out, "UTF-8"));
+            writer.write(postData.toString());
+            writer.flush();*/
+
+            /*int code = urlconnection.getResponseCode();
+            if (code !=  201) {
+                throw new IOException("Invalid response from server: " + code);
+            }*/
+
+            /*BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    urlconnection.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                Log.i("data", line);
+            }*/
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Lỗi rồi :v", Toast.LENGTH_SHORT).show();
+        } finally {
+            if (urlconnection != null) {
+                Toast.makeText(this, "đcm đéo thể connect", Toast.LENGTH_SHORT).show();
+                urlconnection.disconnect();
+            }
+        }
+        return null;
     }
 
     // Hàm kiểm tra đã có code, uid, token chưa??
