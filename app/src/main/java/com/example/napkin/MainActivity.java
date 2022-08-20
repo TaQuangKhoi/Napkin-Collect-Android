@@ -64,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
         ContextWrapper contextWrapper = new ContextWrapper(
                 getApplicationContext());
 
-
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendThought(code, uid, token, etThought.getText().toString());
+            }
+        });
     }
 
     private String ReadToken() {
@@ -115,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         return code;
     }
 
-    private void SendThought() {
+    private void SendThought(String code, String uid, String token, String thought) {
 
     }
 
