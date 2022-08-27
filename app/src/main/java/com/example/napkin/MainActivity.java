@@ -1,24 +1,32 @@
 package com.example.napkin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContextWrapper;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
-
-// import từ widget các View
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSend;
@@ -26,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvAppName;
     File f_code, f_uid, f_token;
     String code, uid, token;
+    HttpURLConnection urlConnection = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Chạy hàm tìm code, uid, token
 
-        try {
+        /*try {
             if(FindCode() && FindUid() && FindToken())
             {
                 // Nếu tìm thấy code, uid, token thì gán giá trị cho các biến
@@ -58,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
 
         // Cái này dùng để làm gì?
@@ -68,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendThought(code, uid, token, etThought.getText().toString());
+                SendThoughtWithCodeAndUid("AHQfjzdo4JcUbVh6uXyGCD9CdOI3",
+                        "45769",
+                        etThought.getText().toString(),
+                        "https://metruyenchu.com/tai-khoan/tu-truyen");
             }
         });
     }
@@ -121,11 +133,66 @@ public class MainActivity extends AppCompatActivity {
         return code;
     }
 
-    private void SendThought(String code, String uid, String token, String thought) {
+    private void SendThoughtWithCodeAndUid(String uid, String code, String thought, String sourceUrl) {
+        try {
+            JSONObject postData = new JSONObject();
+            postData.put("uid", uid);
+            postData.put("code", code);
+            postData.put("content", thought);
+            postData.put("sourceUrl", sourceUrl);
+            postData.put("integrationType", "chrome-extension");
+
+            String FullUrl = "https://us-central1-deepthoughtworks.cloudfunctions.net/addTextToAccount?" +
+                    "uid=AHQfjzdo4JcUbVh6uXyGCD9CdOI3&" +
+                    "code=45769&" +
+                    "content=Thử nghiệm API của Napkin&" +
+                    "sourceUrl=https://budgetbakers.com/support-feedback/&" +
+                    "integrationType=chrome-extension";
+            URL url = new URL(FullUrl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true); // to include a request body.
+            /*urlConnection.setConnectTimeout(10000);
+            urlConnection.setReadTimeout(10000);*/
+//            urlConnection.setDoInput(true);
+//            urlConnection.setChunkedStreamingMode(0);
+//            String respondMessage = urlConnection.getResponseMessage().toString();
+
+            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    out, "UTF-8"));
+            writer.write(postData.toString());
+            writer.flush();
+            writer.close();
+            out.close();
+
+//            urlConnection.connect();
+            Toast.makeText(this, "respondMessage", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(e.toString())
+                    .setTitle("Lỗi")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+        } finally {
+            if (urlConnection != null) {
+                Toast.makeText(this, "đcm đéo thể connect", Toast.LENGTH_SHORT).show();
+                urlConnection.disconnect();
+            }
+        }
+    }
+
     @Nullable
     private Void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
 //        Toast.makeText(this, "Nhân nút rồi", Toast.LENGTH_SHORT).show();
-        HttpURLConnection urlconnection = null;
+//        HttpURLConnection urlConnection = null;
 
         try {
             JSONObject postData = new JSONObject();
@@ -136,13 +203,13 @@ public class MainActivity extends AppCompatActivity {
 
 
             URL url = new URL("https://app.napkin.one/api/createThought");
-            urlconnection = (HttpURLConnection) url.openConnection();
-            urlconnection.setRequestProperty("Content-Type", "application/json");
-            urlconnection.setRequestMethod("POST");
-            urlconnection.setDoOutput(true);
-            urlconnection.setDoInput(true);
-            urlconnection.setChunkedStreamingMode(0);
-            Toast.makeText(this, "gửi thành công nè", Toast.LENGTH_SHORT).show();
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
+            urlConnection.setChunkedStreamingMode(0);
+            Toast.makeText(this, urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
 
             /*OutputStream out = new BufferedOutputStream(urlconnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
@@ -165,9 +232,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Lỗi rồi :v", Toast.LENGTH_SHORT).show();
         } finally {
-            if (urlconnection != null) {
+            if (urlConnection != null) {
                 Toast.makeText(this, "đcm đéo thể connect", Toast.LENGTH_SHORT).show();
-                urlconnection.disconnect();
+                urlConnection.disconnect();
             }
         }
         return null;
