@@ -1,6 +1,5 @@
 package com.example.napkin;
 
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
         etThought = findViewById(R.id.et_thought);
 
         // Chạy hàm tìm code, uid, token
-
-        // Cái này dùng để làm gì?
-        ContextWrapper contextWrapper = new ContextWrapper(
-                getApplicationContext());
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,11 +154,6 @@ public class MainActivity extends AppCompatActivity {
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true); // to include a request body.
-            /*urlConnection.setConnectTimeout(10000);
-            urlConnection.setReadTimeout(10000);*/
-//            urlConnection.setDoInput(true);
-//            urlConnection.setChunkedStreamingMode(0);
-//            String respondMessage = urlConnection.getResponseMessage().toString();
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
@@ -198,8 +188,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Nullable
     private Void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
-//        Toast.makeText(this, "Nhân nút rồi", Toast.LENGTH_SHORT).show();
-//        HttpURLConnection urlConnection = null;
 
         try {
             JSONObject postData = new JSONObject();
@@ -217,24 +205,6 @@ public class MainActivity extends AppCompatActivity {
             urlConnection.setDoInput(true);
             urlConnection.setChunkedStreamingMode(0);
             Toast.makeText(this, urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
-
-            /*OutputStream out = new BufferedOutputStream(urlconnection.getOutputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                    out, "UTF-8"));
-            writer.write(postData.toString());
-            writer.flush();*/
-
-            /*int code = urlconnection.getResponseCode();
-            if (code !=  201) {
-                throw new IOException("Invalid response from server: " + code);
-            }*/
-
-            /*BufferedReader rd = new BufferedReader(new InputStreamReader(
-                    urlconnection.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                Log.i("data", line);
-            }*/
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Lỗi rồi :v", Toast.LENGTH_SHORT).show();
