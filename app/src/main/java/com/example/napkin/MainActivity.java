@@ -170,7 +170,9 @@ public class MainActivity extends AppCompatActivity {
 
 //            urlConnection.connect();
             Toast.makeText(this, "respondMessage", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
 //            e.printStackTrace();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(e.toString())
