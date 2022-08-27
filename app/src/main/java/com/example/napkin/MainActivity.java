@@ -2,6 +2,7 @@ package com.example.napkin;
 
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import okhttp3.OkHttpClient;
+
 public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     File f_code, f_uid, f_token;
     String code, uid, token;
     HttpURLConnection urlConnection = null;
+    private final OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,23 @@ public class MainActivity extends AppCompatActivity {
 
         // Chạy hàm tìm code, uid, token
 
-        /*try {
+        // Cái này dùng để làm gì?
+        ContextWrapper contextWrapper = new ContextWrapper(
+                getApplicationContext());
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendThoughtWithCodeAndUid("AHQfjzdo4JcUbVh6uXyGCD9CdOI3",
+                        "45769",
+                        etThought.getText().toString(),
+                        "https://metruyenchu.com/tai-khoan/tu-truyen");
+            }
+        });
+    }
+
+    private void Find(){
+        try {
             if(FindCode() && FindUid() && FindToken())
             {
                 // Nếu tìm thấy code, uid, token thì gán giá trị cho các biến
@@ -67,22 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }*/
-
-
-        // Cái này dùng để làm gì?
-        ContextWrapper contextWrapper = new ContextWrapper(
-                getApplicationContext());
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SendThoughtWithCodeAndUid("AHQfjzdo4JcUbVh6uXyGCD9CdOI3",
-                        "45769",
-                        etThought.getText().toString(),
-                        "https://metruyenchu.com/tai-khoan/tu-truyen");
-            }
-        });
+        }
     }
 
     private String ReadToken() {
