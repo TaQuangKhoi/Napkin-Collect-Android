@@ -3,7 +3,6 @@ package com.example.napkin;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     private void Test() {
         Request request = new Request.Builder()
                 .url("https://publicobject.com/helloworld.txt")
+                .header("Accept", "application/json")
+                .addHeader("Content-Type", "application/json")
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
                     final String myResponse = response.body().string();
-                    Log.d("MyResponse", myResponse);
+
                 }
             }
         });
