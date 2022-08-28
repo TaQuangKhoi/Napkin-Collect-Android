@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Test("khoi0941@gmail.com",
+                SendThoughtWithToken("khoi0941@gmail.com",
                         "napkin-android-m1c5zf79fof",
-                        "Thử nghiệm với OkHttp",
+                        etThought.getText().toString(),
                         "https://napkin-api.herokuapp.com/api/v1/thought");
             }
         });
@@ -96,12 +96,11 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
                     final String myResponse = response.body().string();
-                    Log.d("Response", myResponse);
-                    etThought.setText(myResponse);
+                    Toast.makeText(MainActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    Log.d("Response", "Not Successful");
+                    Toast.makeText(MainActivity.this, "Can't Send", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -236,21 +235,40 @@ public class MainActivity extends AppCompatActivity {
     private Void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
 
         try {
-            JSONObject postData = new JSONObject();
-            postData.put("email", email);
-            postData.put("token", token);
-            postData.put("thought", thought);
-            postData.put("sourceUrl", sourceUrl);
+            // Body of POST
+            RequestBody formBody = new FormBody.Builder()
+                    .add("email", email)
+                    .add("token", token)
+                    .add("thought", thought)
+                    .add("sourceUrl", sourceUrl)
+                    .build();
 
+            // The request to send (connect with the body now!)
+            Request request = new Request.Builder()
+                    .url("https://app.napkin.one/api/createThought")
+                    .header("Accept", "application/json")
+                    .addHeader("Content-Type", "application/json")
+                    .post(formBody)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    e.printStackTrace();
+                }
 
-            URL url = new URL("https://app.napkin.one/api/createThought");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
-            urlConnection.setChunkedStreamingMode(0);
-            Toast.makeText(this, urlConnection.getResponseMessage(), Toast.LENGTH_SHORT).show();
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    if(response.isSuccessful()){
+                        final String myResponse = response.body().string();
+                        Log.d("Response", myResponse);
+                        etThought.setText(myResponse);
+                    }
+                    else
+                    {
+                        Log.d("Response", "Not Successful");
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Lỗi rồi :v", Toast.LENGTH_SHORT).show();
