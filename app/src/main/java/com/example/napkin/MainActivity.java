@@ -3,6 +3,7 @@ package com.example.napkin;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,8 +32,10 @@ import java.net.URL;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,16 +61,30 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Test();
+                Test("khoi0941@gmail.com",
+                        "napkin-android-m1c5zf79fof",
+                        "Thử nghiệm với OkHttp",
+                        "https://napkin-api.herokuapp.com/api/v1/thought");
             }
         });
     }
 
-    private void Test() {
+    private void Test(String email, String token, String thought, String sourceUrl) {
+
+        // Body of POST
+        RequestBody formBody = new FormBody.Builder()
+                .add("email", email)
+                .add("token", token)
+                .add("thought", thought)
+                .add("sourceUrl", sourceUrl)
+                .build();
+
+        // The request to send (connect with the body now!)
         Request request = new Request.Builder()
-                .url("https://publicobject.com/helloworld.txt")
+                .url("https://app.napkin.one/api/createThought")
                 .header("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
+                .post(formBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -79,7 +96,12 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
                     final String myResponse = response.body().string();
-
+                    Log.d("Response", myResponse);
+                    etThought.setText(myResponse);
+                }
+                else
+                {
+                    Log.d("Response", "Not Successful");
                 }
             }
         });
