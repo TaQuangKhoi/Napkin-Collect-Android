@@ -306,28 +306,6 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    // Hàm kiểm tra đã có code, uid, token chưa??
-    private boolean FindCode() {
-        boolean ketqua = false;
-        try{
-            FileInputStream fis_code = new FileInputStream(f_code);
-            DataInputStream in_code = new DataInputStream(fis_code);
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(in_code) );
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                //code = code + strLine;
-                ketqua = true;
-            }
-            in_code.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return ketqua;
-    }
-
     // Hàm kiểm tra đã có uid chưa??
     private boolean FindUid(){
         boolean ketqua = false;
