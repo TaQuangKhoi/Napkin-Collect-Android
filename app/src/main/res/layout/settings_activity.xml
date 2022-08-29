@@ -11,7 +11,7 @@
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:text=""/>
 
     <TextView
@@ -23,6 +23,13 @@
     <EditText
         android:id="@+id/et_token"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:text=""/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Save"
+        android:textSize="30dp"/>
 </LinearLayout>
