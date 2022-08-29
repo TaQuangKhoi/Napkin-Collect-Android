@@ -91,43 +91,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void Test(String email, String token, String thought, String sourceUrl) {
-
-        // Body of POST
-        RequestBody formBody = new FormBody.Builder()
-                .add("email", email)
-                .add("token", token)
-                .add("thought", thought)
-                .add("sourceUrl", sourceUrl)
-                .build();
-
-        // The request to send (connect with the body now!)
-        Request request = new Request.Builder()
-                .url("https://app.napkin.one/api/createThought")
-                .header("Accept", "application/json")
-                .addHeader("Content-Type", "application/json")
-                .post(formBody)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if(response.isSuccessful()){
-                    final String myResponse = response.body().string();
-                    Toast.makeText(MainActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Can't Send", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
     private void SendThoughtWithCodeAndUid(String uid, String code, String thought, String sourceUrl) {
         try {
             JSONObject postData = new JSONObject();
