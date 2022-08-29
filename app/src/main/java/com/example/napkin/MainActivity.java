@@ -1,11 +1,9 @@
 package com.example.napkin;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,18 +11,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONObject;
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -66,80 +56,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBtnSetting() {
-        ivSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
+        ivSetting.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
     }
 
     private void initBtnSend() {
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SendThoughtWithToken(
-                        email,
-                        token,
-                        etThought.getText().toString(),
-                        etSourceUrl.getText().toString()
-                );
-            }
-        });
-    }
-
-    private void SendThoughtWithCodeAndUid(String uid, String code, String thought, String sourceUrl) {
-        try {
-            JSONObject postData = new JSONObject();
-            postData.put("uid", uid);
-            postData.put("code", code);
-            postData.put("content", thought);
-            postData.put("sourceUrl", sourceUrl);
-            postData.put("integrationType", "chrome-extension");
-
-            String FullUrl = "https://us-central1-deepthoughtworks.cloudfunctions.net/addTextToAccount?" +
-                    "uid=AHQfjzdo4JcUbVh6uXyGCD9CdOI3&" +
-                    "code=45769&" +
-                    "content=Thử nghiệm API của Napkin&" +
-                    "sourceUrl=https://budgetbakers.com/support-feedback/&" +
-                    "integrationType=chrome-extension";
-            URL url = new URL(FullUrl);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Accept", "application/json");
-            urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setDoOutput(true); // to include a request body.
-
-            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                    out, "UTF-8"));
-            writer.write(postData.toString());
-            writer.flush();
-            writer.close();
-            out.close();
-
-//            urlConnection.connect();
-            Toast.makeText(this, "respondMessage", Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e)
-        {
-//            e.printStackTrace();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(e.toString())
-                    .setTitle("Lỗi")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-        } finally {
-            if (urlConnection != null) {
-                Toast.makeText(this, "đcm đéo thể connect", Toast.LENGTH_SHORT).show();
-                urlConnection.disconnect();
-            }
-        }
+        btnSend.setOnClickListener(view -> SendThoughtWithToken(
+                email,
+                token,
+                etThought.getText().toString(),
+                etSourceUrl.getText().toString()
+        ));
     }
 
     @Nullable
