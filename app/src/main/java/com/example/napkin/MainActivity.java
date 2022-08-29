@@ -2,6 +2,7 @@ package com.example.napkin;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought;
     File f_code, f_uid, f_token;
-    String code, uid, token;
+    String email, code, uid, token;
     HttpURLConnection urlConnection = null;
     private final OkHttpClient client = new OkHttpClient();
     ImageView ivSetting;
+    SharedPreferences savedSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +58,16 @@ public class MainActivity extends AppCompatActivity {
         btnSend = findViewById(R.id.btn_send);
         etThought = findViewById(R.id.et_thought);
         ivSetting = findViewById(R.id.iv_settings);
+        savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
 
+        LoadSetting();
         initBtnSend();
         initBtnSetting();
+    }
+
+    private void LoadSetting() {
+        email = savedSettings.getString("email", "");
+        token = savedSettings.getString("token", "");
     }
 
     private void initBtnSetting() {
@@ -75,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendThoughtWithToken("khoi0941@gmail.com",
-                        "napkin-android-m1c5zf79fof",
+                SendThoughtWithToken(
+                        email,
+                        token,
                         etThought.getText().toString(),
-                        "https://napkin-api.herokuapp.com/api/v1/thought");
+                        "https://napkin-api.herokuapp.com/api/v1/thought"
+                );
             }
         });
     }
