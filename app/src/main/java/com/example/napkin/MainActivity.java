@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     String code, uid, token;
     HttpURLConnection urlConnection = null;
     private final OkHttpClient client = new OkHttpClient();
+    ImageView ivSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,20 @@ public class MainActivity extends AppCompatActivity {
         // Ánh xạ
         btnSend = findViewById(R.id.btn_send);
         etThought = findViewById(R.id.et_thought);
+        ivSetting = findViewById(R.id.iv_settings);
 
         initBtnSend();
+        initBtnSetting();
+    }
 
+    private void initBtnSetting() {
+        ivSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initBtnSend() {
