@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +40,6 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought;
-    TextView tvAppName;
     File f_code, f_uid, f_token;
     String code, uid, token;
     HttpURLConnection urlConnection = null;
@@ -56,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
         btnSend = findViewById(R.id.btn_send);
         etThought = findViewById(R.id.et_thought);
 
-        // Chạy hàm tìm code, uid, token
+        initBtnSend();
 
+    }
+
+    private void initBtnSend() {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
