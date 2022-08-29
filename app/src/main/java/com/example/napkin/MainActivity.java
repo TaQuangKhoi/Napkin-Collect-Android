@@ -41,7 +41,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSend;
-    EditText etThought;
+    EditText etThought, etSourceUrl;
     File f_code, f_uid, f_token;
     String email, code, uid, token;
     HttpURLConnection urlConnection = null;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // Ánh xạ
         btnSend = findViewById(R.id.btn_send);
         etThought = findViewById(R.id.et_thought);
+        etSourceUrl = findViewById(R.id.et_source_url);
         ivSetting = findViewById(R.id.iv_settings);
         savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
 
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         email,
                         token,
                         etThought.getText().toString(),
-                        "https://napkin-api.herokuapp.com/api/v1/thought"
+                        etSourceUrl.getText().toString()
                 );
             }
         });
