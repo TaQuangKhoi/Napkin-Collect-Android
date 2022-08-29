@@ -284,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     if(response.isSuccessful()){
-
                         final String myResponse = response.body().string();
                         Log.d("Response", myResponse);
                     }
@@ -297,10 +296,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Lỗi rồi :v", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error :v", Toast.LENGTH_SHORT).show();
         } finally {
             if (urlConnection != null) {
-                Toast.makeText(this, "đcm đéo thể connect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Can't connect", Toast.LENGTH_SHORT).show();
                 urlConnection.disconnect();
             }
         }
