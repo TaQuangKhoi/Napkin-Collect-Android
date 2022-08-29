@@ -23,7 +23,13 @@ public class SettingsActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btn_save);
         savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
 
+        LoadSetting();
         initButton();
+    }
+
+    private void LoadSetting() {
+        etEmail.setText(savedSettings.getString("email", ""));
+        etToken.setText(savedSettings.getString("token", ""));
     }
 
     private void initButton() {
