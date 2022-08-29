@@ -19,13 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -132,30 +128,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void Find() {
-        try {
-            if(FindUid())
-            {
-                // Nếu tìm thấy code, uid, token thì gán giá trị cho các biến
-                code = ReadCode();
-                uid = ReadUid();
-                token = ReadToken();
-            }
-            else
-            {
-                // Nếu không tìm thấy code, uid, token thì gán giá trị mặc định cho các biến
-
-                // Chạy Activity Đăng nhập
-                Intent intent = new Intent(MainActivity.this, ChooseLoginType.class);
-                startActivity(intent);
-
-            }
-        }
-        catch (Exception e) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-    
     private void SendThoughtWithCodeAndUid(String uid, String code, String thought, String sourceUrl) {
         try {
             JSONObject postData = new JSONObject();
