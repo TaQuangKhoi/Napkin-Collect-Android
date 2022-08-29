@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void Find() {
         try {
-            if(FindCode() && FindUid() && FindToken())
+            if(FindUid())
             {
                 // Nếu tìm thấy code, uid, token thì gán giá trị cho các biến
                 code = ReadCode();
@@ -320,28 +320,6 @@ public class MainActivity extends AppCompatActivity {
                 ketqua = true;
             }
             in_uid.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return ketqua;
-    }
-
-    // Hàm kiểm tra đã có token chưa??
-    private boolean FindToken(){
-        boolean ketqua = false;
-        try{
-            FileInputStream fis_token = new FileInputStream(f_token);
-            DataInputStream in_token = new DataInputStream(fis_token);
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(in_token) );
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                //token = token + strLine;
-                ketqua = true;
-            }
-            in_token.close();
         }
         catch (IOException e)
         {
