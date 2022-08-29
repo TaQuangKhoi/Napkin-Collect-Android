@@ -259,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Nullable
     private Void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
-
         try {
             // Body of POST
             RequestBody formBody = new FormBody.Builder()
@@ -285,9 +284,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     if(response.isSuccessful()){
+
                         final String myResponse = response.body().string();
                         Log.d("Response", myResponse);
-                        etThought.setText(myResponse);
                     }
                     else
                     {
@@ -295,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+            Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Lỗi rồi :v", Toast.LENGTH_SHORT).show();
