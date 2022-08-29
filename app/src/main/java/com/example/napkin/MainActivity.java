@@ -155,55 +155,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
-
-    private String ReadToken() {
-        String line; // chứa text từ file
-        String token = "";
-        try {
-
-            FileInputStream fis = new FileInputStream(f_token);
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            while ((line = br.readLine()) != null) {
-                token = line;
-            }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return token;
-    }
-
-    private String ReadUid() {
-        String uid = "";
-        try {
-            f_uid = new File(getFilesDir(), "uid.txt");
-            FileInputStream fis = new FileInputStream(f_uid);
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            uid = br.readLine();
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return uid;
-    }
-
-    private String ReadCode() {
-        String code = "";
-        try {
-            f_code = new File(getFilesDir(), "code.txt");
-            FileInputStream fis = new FileInputStream(f_code);
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            code = br.readLine();
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return code;
-    }
-
+    
     private void SendThoughtWithCodeAndUid(String uid, String code, String thought, String sourceUrl) {
         try {
             JSONObject postData = new JSONObject();
