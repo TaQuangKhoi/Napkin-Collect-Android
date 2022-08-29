@@ -305,26 +305,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-
-    // Hàm kiểm tra đã có uid chưa??
-    private boolean FindUid(){
-        boolean ketqua = false;
-        try{
-            FileInputStream fis_uid = new FileInputStream(f_uid);
-            DataInputStream in_uid = new DataInputStream(fis_uid);
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(in_uid) );
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                //uid = uid + strLine;
-                ketqua = true;
-            }
-            in_uid.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return ketqua;
-    }
 }
