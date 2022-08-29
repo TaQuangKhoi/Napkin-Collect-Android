@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -38,8 +37,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought, etSourceUrl;
-    File f_code, f_uid, f_token;
-    String email, code, uid, token;
+    String email, token;
     HttpURLConnection urlConnection = null;
     private final OkHttpClient client = new OkHttpClient();
     ImageView ivSetting;
