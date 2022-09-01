@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable-200dpi/napkin_logo_analogue_black.xml" value="0.128" />
         <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable/custom_edit_text.xml" value="0.128" />
+        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable/custom_thought_edit_text.xml" value="0.128" />
         <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable/settings_outline.xml" value="0.1465" />
         <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/font/inter.xml" value="0.27487179487179486" />
         <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1606425702811245" />
