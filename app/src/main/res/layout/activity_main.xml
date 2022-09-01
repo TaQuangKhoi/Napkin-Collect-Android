@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <ImageView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/napkin_logo_analogue_black"
-        app:layout_constraintBottom_toTopOf="@id/et_thought"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +39,6 @@
         android:inputType="text"
         android:fontFamily="@font/inter_regular"
 
-        app:layout_constraintBottom_toTopOf="@id/et_source_url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_app_name" />
@@ -49,7 +46,7 @@
     <EditText
         android:id="@+id/et_source_url"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:hint="Source of Thought"
 
         android:fontFamily="@font/inter_regular"
