@@ -34,6 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:hint="Enter your thought"
+        android:padding="10dp"
+
+        android:background="@drawable/custom_thought_edit_text"
 
         android:imeOptions="actionSend|flagNoEnterAction"
         android:inputType="text"
