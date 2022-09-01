@@ -32,7 +32,7 @@
         android:id="@+id/et_thought"
 
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:hint="Enter your thought"
 
         android:imeOptions="actionSend|flagNoEnterAction"
