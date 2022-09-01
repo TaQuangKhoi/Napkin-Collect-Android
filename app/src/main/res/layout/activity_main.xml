@@ -23,10 +23,12 @@
         android:id="@+id/iv_settings"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_settings"
         app:layout_constraintBottom_toBottomOf="@id/tv_app_name"
         app:layout_constraintEnd_toEndOf="@id/tv_app_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_app_name" />
+        app:layout_constraintTop_toTopOf="@+id/tv_app_name"
+        app:layout_constraintVertical_bias="0.5" />
 
     <EditText
         android:id="@+id/et_thought"
@@ -37,6 +39,8 @@
 
         android:imeOptions="actionSend|flagNoEnterAction"
         android:inputType="text"
+        android:fontFamily="@font/inter_regular"
+
         app:layout_constraintBottom_toTopOf="@id/et_source_url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="Source of Thought"
+
+        android:fontFamily="@font/inter_regular"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_thought" />
@@ -55,7 +62,10 @@
         android:id="@+id/btn_send"
         android:layout_width="100dp"
         android:layout_height="50dp"
+
         android:text="Send"
+        android:fontFamily="@font/inter_bold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

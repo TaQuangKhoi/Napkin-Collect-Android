@@ -6,30 +6,47 @@
         android:id="@+id/tv_email"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
         android:text="Email"
+        android:fontFamily="@font/inter_bold"
+
         android:textSize="30dp"/>
+
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
+        android:fontFamily="@font/inter_regular"
+
         android:text=""/>
 
     <TextView
         android:id="@+id/tv_token"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
         android:text="Token"
+        android:fontFamily="@font/inter_bold"
+
         android:textSize="30dp"/>
+
     <EditText
         android:id="@+id/et_token"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
+        android:fontFamily="@font/inter_regular"
+
         android:text=""/>
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:text="Save"
+
+        android:text="SAVE"
+        android:fontFamily="@font/inter_bold"
+
         android:textSize="30dp"/>
 </LinearLayout>
