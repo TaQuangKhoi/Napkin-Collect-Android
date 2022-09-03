@@ -11,15 +11,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="Email"
+        android:text="@string/prompt_email"
         android:fontFamily="@font/inter_bold"
 
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
 
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -38,12 +39,14 @@
         android:text="Token"
         android:fontFamily="@font/inter_bold"
 
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 
     <EditText
         android:id="@+id/et_token"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
@@ -60,5 +63,5 @@
         android:text="SAVE"
         android:fontFamily="@font/inter_bold"
 
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 </LinearLayout>
