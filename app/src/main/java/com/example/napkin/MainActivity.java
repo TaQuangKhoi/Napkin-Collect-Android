@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
         etSourceUrl.setText("");
 
-        initReceiver();
+        initBtnSetting();
         LoadSetting();
         initBtnSend();
-        initBtnSetting();
+        initReceiver();
     }
 
     private void initReceiver() {
@@ -84,7 +84,12 @@ public class MainActivity extends AppCompatActivity {
             if (sharedUrl != null) {
                 etSourceUrl.setText(sharedUrl);
             }
-
+            SendThoughtWithToken(
+                    email,
+                    token,
+                    sharedText.toString(),
+                    ""
+            );
         }
     }
 
