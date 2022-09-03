@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought, etSourceUrl;
     String email, token;
-    private final OkHttpClient client = new OkHttpClient();
     ImageView ivSetting;
+
+    private final OkHttpClient client = new OkHttpClient();
     SharedPreferences savedSettings;
 
     @Override
