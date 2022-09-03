@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
@@ -71,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
-    @Nullable
-    private Void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
+    private void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
         try {
             // Body of POST
             RequestBody formBody = new FormBody.Builder()
@@ -117,6 +115,5 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.disconnect();
             }
         }
-        return null;
     }
 }
