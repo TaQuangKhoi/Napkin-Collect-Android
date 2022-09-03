@@ -76,16 +76,15 @@ public class MainActivity extends AppCompatActivity {
 
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String sharedUrl = intent.getStringExtra(Intent.EXTRA_REFERRER);
         if (sharedText != null) {
             // Update UI to reflect text being shared
             Toast.makeText(this, "Text Sending : " + sharedText, Toast.LENGTH_SHORT).show();
             etThought.setText(sharedText);
-            SendThoughtWithToken(
-                    email,
-                    token,
-                    sharedText,
-                    ""
-            );
+            if (sharedUrl != null) {
+                etSourceUrl.setText(sharedUrl);
+            }
+
         }
     }
 
@@ -160,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error :v", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error - Details in Log:v", Toast.LENGTH_SHORT).show();
         }
     }
 }
