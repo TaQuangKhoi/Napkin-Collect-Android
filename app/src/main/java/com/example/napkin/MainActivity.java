@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought, etSourceUrl;
     String email, token;
-    HttpURLConnection urlConnection = null;
     private final OkHttpClient client = new OkHttpClient();
     ImageView ivSetting;
     SharedPreferences savedSettings;
@@ -109,11 +107,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Error :v", Toast.LENGTH_SHORT).show();
-        } finally {
-            if (urlConnection != null) {
-                Toast.makeText(this, "Can't connect", Toast.LENGTH_SHORT).show();
-                urlConnection.disconnect();
-            }
         }
     }
 }
