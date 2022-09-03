@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         etSourceUrl = findViewById(R.id.et_source_url);
         ivSetting = findViewById(R.id.iv_settings);
         savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
+        etSourceUrl.setText("");
 
         LoadSetting();
         initBtnSend();
