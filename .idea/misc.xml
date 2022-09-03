@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable-200dpi/napkin_logo_analogue_black.xml" value="0.128" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable/custom_edit_text.xml" value="0.128" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable/custom_thought_edit_text.xml" value="0.128" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/drawable/settings_outline.xml" value="0.1465" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/font/inter.xml" value="0.27487179487179486" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1606425702811245" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1875" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout/activity_choose_login_type.xml" value="0.25" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout/activity_get_code.xml" value="0.22239583333333332" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Java/jdk-18.0.1.1/eclipse-workspace/Napkin/app/src/main/res/layout/settings_activity.xml" value="0.25" />
-      </map>
-    </option>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
