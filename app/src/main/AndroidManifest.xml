@@ -20,13 +20,8 @@
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".ChooseLoginType"
-            android:exported="false" />
-        <activity
-            android:name=".GetCode"
-            android:exported="true"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
