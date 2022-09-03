@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Napkin</string>
+    <string name="app_name">Napkin Collect</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
