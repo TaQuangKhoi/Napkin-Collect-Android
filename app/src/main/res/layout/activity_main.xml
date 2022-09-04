@@ -38,13 +38,14 @@
 
         android:background="@drawable/custom_thought_edit_text"
         android:fontFamily="@font/inter_regular"
+
         android:layout_margin="5dp"
 
         android:hint="Enter your thought"
-        android:autofillHints="Testing"
+        android:autofillHints="thought"
 
         android:imeOptions="actionSend|flagNoEnterAction"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:padding="10dp"
 
         app:layout_constraintBottom_toTopOf="@id/btn_send"
@@ -60,12 +61,14 @@
         android:layout_margin="5dp"
 
         android:fontFamily="@font/inter_regular"
-
         android:hint="Source of Thought"
+        android:inputType="textMultiLine"
+        android:autofillHints="url"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_thought"
-        android:inputType="textUri" />
+        />
 
     <Button
         android:id="@+id/btn_send"
@@ -74,6 +77,7 @@
         android:text="@string/btn_send"
 
         android:fontFamily="@font/inter_bold"
+        android:textSize="30sp"
 
         app:layout_constraintTop_toBottomOf="@id/et_source_url"
         app:layout_constraintBottom_toBottomOf="parent"
