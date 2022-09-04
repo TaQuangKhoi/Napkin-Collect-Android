@@ -69,5 +69,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
 
-        android:text="Version 1.3.2-beta-1"/>
+        android:text="Version 1.3.2"/>
 </LinearLayout>
