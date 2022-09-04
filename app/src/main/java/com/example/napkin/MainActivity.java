@@ -2,6 +2,7 @@ package com.example.napkin;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
     Button btnSend;
     EditText etThought, etSourceUrl;
     String email, token;
-    private final OkHttpClient client = new OkHttpClient();
     ImageView ivSetting;
+    Intent intentReceiver;
+
+    private final OkHttpClient client = new OkHttpClient();
     SharedPreferences savedSettings;
 
     @Override
@@ -43,9 +47,62 @@ public class MainActivity extends AppCompatActivity {
         savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
         etSourceUrl.setText("");
 
+        initBtnSetting();
         LoadSetting();
         initBtnSend();
-        initBtnSetting();
+        initReceiver();
+    }
+
+    private void initReceiver() {
+        Log.d("Napkin", "initReceiver: Init receiver");
+        intentReceiver = getIntent();
+        String action = intentReceiver.getAction();
+        String type = intentReceiver.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                handleSendText(intentReceiver); // Handle text being sent
+            } else if (type.startsWith("image/")) {
+                handleSendImage(intentReceiver); // Handle single image being sent
+            }
+        } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                handleSendMultipleImages(intentReceiver); // Handle multiple images being sent
+            }
+        } else {
+            Toast.makeText(this, "There's nothing", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void handleSendText(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String sharedUrl = intent.getStringExtra(Intent.EXTRA_REFERRER);
+        if (sharedText != null) {
+            // Update UI to reflect text being shared
+            Toast.makeText(this, "Text Sending : " + sharedText, Toast.LENGTH_SHORT).show();
+            etThought.setText(sharedText);
+            if (sharedUrl != null) {
+                etSourceUrl.setText(sharedUrl);
+            }
+            SendThoughtWithToken(
+                    email,
+                    token,
+                    sharedText.toString(),
+                    ""
+            );
+        }
+    }
+
+    void handleSendImage(Intent intent) {
+        //Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        Toast.makeText(this, "Don't allow image", Toast.LENGTH_SHORT).show();
+    }
+
+    void handleSendMultipleImages(Intent intent) {
+        ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        if (imageUris != null) {
+            Toast.makeText(this, "Don't allow images", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void LoadSetting() {
@@ -107,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error :v", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error - Details in Log:v", Toast.LENGTH_SHORT).show();
         }
     }
 }
