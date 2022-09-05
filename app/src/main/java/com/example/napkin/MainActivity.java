@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             if ("text/plain".equals(type)) {
                 handleSendText(intentReceiver); // Handle text being sent
             } else if (type.startsWith("image/")) {
-                handleSendImage(intentReceiver); // Handle single image being sent
+                handleSendImage(); // Handle single image being sent
             }
         } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
             if (type.startsWith("image/")) {
@@ -85,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
             SendThoughtWithToken(
                     email,
                     token,
-                    sharedText.toString(),
+                    sharedText,
                     ""
             );
         }
     }
 
-    void handleSendImage(Intent intent) {
+    void handleSendImage() {
         //Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
         Toast.makeText(this, "Don't allow image", Toast.LENGTH_SHORT).show();
     }
