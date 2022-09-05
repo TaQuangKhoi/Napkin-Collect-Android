@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
             if (type.startsWith("image/")) {
                 handleSendMultipleImages(intentReceiver); // Handle multiple images being sent
             }
-        } else {
-            Toast.makeText(this, "There's nothing", Toast.LENGTH_SHORT).show();
         }
     }
 
