@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         initReceiver();
     }
 
+    /*
+     * Func to Receive data sending from outside (from Browsers)
+     * using Intent
+     */
     private void initReceiver() {
         Log.d("Napkin", "initReceiver: Init receiver");
         intentReceiver = getIntent();
@@ -103,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * Load the Setting from SharedPreferences
+     * and set the email and token
+     */
     private void LoadSetting() {
         email = savedSettings.getString("email", "");
         token = savedSettings.getString("token", "");
