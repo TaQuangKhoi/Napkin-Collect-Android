@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * Func to handle text being sent
+     */
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         String sharedUrl = intent.getStringExtra(Intent.EXTRA_REFERRER);
@@ -95,11 +98,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * Func to handle image
+     *
+     */
     void handleSendImage() {
         //Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
         Toast.makeText(this, "Don't allow image", Toast.LENGTH_SHORT).show();
     }
 
+    /*
+     * Func to handle multiple images
+     */
     void handleSendMultipleImages(Intent intent) {
         ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         if (imageUris != null) {
@@ -116,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
         token = savedSettings.getString("token", "");
     }
 
+    /*
+     * Init the Setting Button
+     * When click, it will open the Setting Activity
+     */
     private void initBtnSetting() {
         ivSetting.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -123,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Init the Send Button
+     * When click, it will send the thought to the server
+     */
     private void initBtnSend() {
         btnSend.setOnClickListener(view -> SendThoughtWithToken(
                 email,
@@ -132,6 +150,10 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
+    /*
+     * Send the thought to the server
+     * using OkHttp
+     */
     private void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
         try {
             // Body of POST
