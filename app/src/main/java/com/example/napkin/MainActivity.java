@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             if (sharedUrl != null) {
                 etSourceUrl.setText(sharedUrl);
             }
-            SendThoughtWithToken(
+            SendThought_OkHttp(
                     email,
                     token,
                     sharedText,
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
      * When click, it will send the thought to the server
      */
     private void initBtnSend() {
-        btnSend.setOnClickListener(view -> SendThoughtWithToken(
+        btnSend.setOnClickListener(view -> SendThought_OkHttp(
                 email,
                 token,
                 etThought.getText().toString(),
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
      * Send the thought to the server
      * using OkHttp
      */
-    private void SendThoughtWithToken(String email, String token, String thought, String sourceUrl) {
+    private void SendThought_OkHttp(String email, String token, String thought, String sourceUrl) {
         try {
             // Body of POST
             RequestBody formBody = new FormBody.Builder()
