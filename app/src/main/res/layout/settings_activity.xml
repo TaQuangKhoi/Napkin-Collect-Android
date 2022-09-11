@@ -70,4 +70,18 @@
         android:layout_gravity="center_horizontal"
 
         android:text="@string/app_version"/>
+
+    <!-- Add Infor Fragment to activity -->
+    <fragment
+        android:id="@+id/fragment_info"
+        android:name="com.example.napkin.InfoFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/inter_regular"
+
+        android:autofillHints="token"/>
 </LinearLayout>
