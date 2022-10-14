@@ -195,4 +195,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Error - Details in Log:v", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /*
+     * Send the thought to the server
+     * using Apache HttpClient
+     */
+    private void SendThought_Apache_HttpClient(String email, String token, String thought, String sourceUrl) {
+
+    }
+    // The end of MainActivity class
 }
