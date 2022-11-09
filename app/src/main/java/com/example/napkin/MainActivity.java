@@ -25,7 +25,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnSend;
+    Button btnSend, btnClear;
     EditText etThought, etSourceUrl;
     String email, token;
     ImageView ivSetting;
@@ -39,18 +39,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Ánh xạ
+        AddControls();
+        AddEvents();
+
+        LoadSetting();
+        initReceiver();
+    }
+
+    private void AddControls() {
         btnSend = findViewById(R.id.btn_send);
+        btnClear = findViewById(R.id.btn_clear_text);
         etThought = findViewById(R.id.et_thought);
         etSourceUrl = findViewById(R.id.et_source_url);
         ivSetting = findViewById(R.id.iv_settings);
         savedSettings = getSharedPreferences("Settings", MODE_PRIVATE);
         etSourceUrl.setText("");
-
-        initBtnSetting();
-        LoadSetting();
-        initBtnSend();
-        initReceiver();
     }
 
     /*
@@ -126,6 +129,12 @@ public class MainActivity extends AppCompatActivity {
         token = savedSettings.getString("token", "");
     }
 
+    private void AddEvents() {
+        initBtnSend();
+        initBtnSetting();
+        initBtnClear();
+    }
+
     /*
      * Init the Setting Button
      * When click, it will open the Setting Activity
@@ -148,6 +157,13 @@ public class MainActivity extends AppCompatActivity {
                 etThought.getText().toString(),
                 etSourceUrl.getText().toString()
         ));
+    }
+
+    private void initBtnClear() {
+        btnClear.setOnClickListener(view -> {
+            etThought.setText("");
+            etSourceUrl.setText("");
+        });
     }
 
     /*
