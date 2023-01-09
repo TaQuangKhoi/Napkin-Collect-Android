@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final OkHttpClient client = new OkHttpClient();
     SharedPreferences savedSettings;
+
+    private static final String TAG = "Napkin MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
      * using Intent
      */
     private void initReceiver() {
-        Log.d("Napkin", "initReceiver: Init receiver");
+        Log.d(TAG, "initReceiver: Init receiver");
         intentReceiver = getIntent();
         String action = intentReceiver.getAction();
         String type = intentReceiver.getType();
 
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
-                handleSendText(intentReceiver); // Handle text being sent
+                handleSentText(intentReceiver); // Handle text being sent
             } else if (type.startsWith("image/")) {
                 handleSendImage(); // Handle single image being sent
             }
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     /*
      * Func to handle text being sent
      */
-    void handleSendText(Intent intent) {
+    void handleSentText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         String sharedUrl = intent.getStringExtra(Intent.EXTRA_REFERRER);
         if (sharedText != null) {
@@ -159,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
+    /*
+     * Init the Clear Button
+     * When click, it will clear the text in the EditText etThought and etSourceUrl
+     */
     private void initBtnClear() {
         btnClear.setOnClickListener(view -> {
             etThought.setText("");
@@ -171,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
      * using OkHttp
      */
     private void SendThought_OkHttp(String email, String token, String thought, String sourceUrl) {
+        Snackbar sb = Snackbar.make(btnSend, "Sent! ✅", Snackbar.LENGTH_SHORT);
         try {
             // Body of POST
             RequestBody formBody = new FormBody.Builder()
@@ -187,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                     .addHeader("Content-Type", "application/json")
                     .post(formBody)
                     .build();
+
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -195,20 +205,20 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         final String myResponse = response.body().string();
-                        Log.d("Response", myResponse);
-                    }
-                    else
-                    {
-                        Log.d("Response", "Not Successful");
+                        sb.show();
+                        Log.d(TAG, "Response " + myResponse);
+                    } else {
+                        Log.d(TAG, "Response Not Successful");
                     }
                 }
             });
-            Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
+
+//            Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error - Details in Log:v", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error - Details in Log 😲", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -219,5 +229,10 @@ public class MainActivity extends AppCompatActivity {
     private void SendThought_Apache_HttpClient(String email, String token, String thought, String sourceUrl) {
 
     }
+
+    private void SendThought_Retrofit(String email, String token, String thought, String sourceUrl) {
+
+    }
+
     // The end of MainActivity class
 }
