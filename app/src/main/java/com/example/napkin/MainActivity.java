@@ -15,8 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivSetting;
     Intent intentReceiver;
 
-    private final OkHttpClient client = new OkHttpClient();
     SharedPreferences savedSettings;
+
+    SendThought sendThought = new SendThought();
 
     private static final String TAG = "Napkin MainActivity";
 
@@ -96,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             if (sharedUrl != null) {
                 etSourceUrl.setText(sharedUrl);
             }
-            SendThought_OkHttp(
+            sendThought.SendThought_OkHttp(
                     email,
                     token,
                     sharedText,
@@ -155,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
      * When click, it will send the thought to the server
      */
     private void initBtnSend() {
-        btnSend.setOnClickListener(view -> SendThought_OkHttp(
+        btnSend.setOnClickListener(view -> sendThought.SendThought_OkHttp(
                 email,
                 token,
                 etThought.getText().toString(),
@@ -174,65 +181,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
-     * Send the thought to the server
-     * using OkHttp
-     */
-    private void SendThought_OkHttp(String email, String token, String thought, String sourceUrl) {
-        Snackbar sb = Snackbar.make(btnSend, "Sent! ✅", Snackbar.LENGTH_SHORT);
-        try {
-            // Body of POST
-            RequestBody formBody = new FormBody.Builder()
-                    .add("email", email)
-                    .add("token", token)
-                    .add("thought", thought)
-                    .add("sourceUrl", sourceUrl)
-                    .build();
-
-            // The request to send (connect with the body now!)
-            Request request = new Request.Builder()
-                    .url("https://app.napkin.one/api/createThought")
-                    .header("Accept", "application/json")
-                    .addHeader("Content-Type", "application/json")
-                    .post(formBody)
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    if (response.isSuccessful()) {
-                        final String myResponse = response.body().string();
-                        sb.show();
-                        Log.d(TAG, "Response " + myResponse);
-                    } else {
-                        Log.d(TAG, "Response Not Successful");
-                    }
-                }
-            });
-
-//            Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error - Details in Log 😲", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /*
-     * Send the thought to the server
-     * using Apache HttpClient
-     */
-    private void SendThought_Apache_HttpClient(String email, String token, String thought, String sourceUrl) {
-
-    }
-
-    private void SendThought_Retrofit(String email, String token, String thought, String sourceUrl) {
-
-    }
 
     // The end of MainActivity class
 }
