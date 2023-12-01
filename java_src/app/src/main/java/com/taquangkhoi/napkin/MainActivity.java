@@ -1,9 +1,12 @@
 package com.taquangkhoi.napkin;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -156,12 +159,13 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Internet Connection", Toast.LENGTH_SHORT).show();
             }
-            sendThought.SendThought_OkHttp(
-                    email,
-                    token,
-                    etThought.getText().toString(),
-                    etSourceUrl.getText().toString()
-            );
+
+//            sendThought.SendThought_OkHttp(
+//                    email,
+//                    token,
+//                    etThought.getText().toString(),
+//                    etSourceUrl.getText().toString()
+//            );
         });
     }
 
@@ -198,6 +202,33 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static boolean isInternetAvailable(Context context) {
+        boolean result = false;
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                if (activeNetwork != null) {
+                    if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI ||
+                            activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                        result = true;
+                    }
+                }
+            } else {
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                if (activeNetwork != null) {
+                    if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI ||
+                            activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     // The end of MainActivity class

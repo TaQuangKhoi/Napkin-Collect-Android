@@ -51,6 +51,8 @@ public class SendThought {
 
             Response response = call.execute();
 
+            Log.d(TAG, "SendThought_OkHttp: Response: " + response.toString());
+
             assert response.body() != null : "Response body is null";
 
 //            client.newCall(request).enqueue(new Callback() {
@@ -74,13 +76,11 @@ public class SendThought {
 //            Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
-            String error = e.getMessage();
-            return error;
+            return e.getMessage();
         } finally {
-
             Log.d(TAG, msg);
-            return msg;
         }
+        return null;
     }
 
     /*
