@@ -2,6 +2,7 @@ package com.example.napkin;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +13,8 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences savedSettings;
     EditText etEmail, etToken;
     Button btnSave;
+    private static final String TAG = "Napkin SettingsActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,25 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initButton() {
         btnSave.setOnClickListener(v -> {
+            String email = etEmail.getText().toString();
+            if (email.isEmpty()) {
+                Log.i(TAG, "Email cannot be empty");
+                Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            savedSettings.edit().putString("email", email).apply();
 
-            savedSettings.edit().putString("email", etEmail.getText().toString()).apply();
-            savedSettings.edit().putString("token", etToken.getText().toString()).apply();
-            savedSettings.edit().commit();
+            String token = etToken.getText().toString();
+            if (token.isEmpty()) {
+                Log.i(TAG, "Token cannot be empty");
+                Toast.makeText(this, "Token cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            savedSettings.edit().putString("token", token).apply();
 
             Toast.makeText(this, "Saved Settings", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Saved Settings Successfully with email: " + email + " and token: " + token + ".");
+
             finish();
         });
     }
