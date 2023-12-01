@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.taquangkhoi.napkincollect.components.MainScreen
 import com.taquangkhoi.napkincollect.ui.theme.NapkinCollectTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +19,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             NapkinCollectTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     Greeting("Android")
                 }
             }
@@ -29,15 +33,24 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-            text = "Hello $name!",
-            modifier = modifier
+        text = "Hello $name!",
+        modifier = modifier
     )
 }
+
+@Composable
+fun HaoVanCard() {
+    Text(
+        text = "Hello Hảo!",
+    )
+}
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     NapkinCollectTheme {
-        Greeting("Android")
+        MainScreen()
     }
 }
