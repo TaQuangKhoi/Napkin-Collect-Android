@@ -2,6 +2,7 @@ package com.taquangkhoi.napkin;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.taquangkhoi.napkin.R;
 import com.taquangkhoi.napkin.SendThought;
 import com.taquangkhoi.napkin.SettingsActivity;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -100,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Handle image
-     *
      */
     void handleSendImage() {
         //Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
@@ -148,12 +149,20 @@ public class MainActivity extends AppCompatActivity {
      * When click, it will send the thought to the server
      */
     private void initBtnSend() {
-        btnSend.setOnClickListener(view -> sendThought.SendThought_OkHttp(
-                email,
-                token,
-                etThought.getText().toString(),
-                etSourceUrl.getText().toString()
-        ));
+        btnSend.setOnClickListener(view -> {
+            // Check if the device is connected to the Internet
+            if (!isInternetAvailable()) {
+                Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Internet Connection", Toast.LENGTH_SHORT).show();
+            }
+            sendThought.SendThought_OkHttp(
+                    email,
+                    token,
+                    etThought.getText().toString(),
+                    etSourceUrl.getText().toString()
+            );
+        });
     }
 
     /*
@@ -167,6 +176,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Check if the device is connected to the Internet
+     */
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//            cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        }
+
+        assert cm != null;
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     // The end of MainActivity class
 }
