@@ -112,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
+    /**
      * Func to handle image
+     *
      *
      */
     void handleSendImage() {
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
+    /**
      * Load the Setting from SharedPreferences
      * and set the email and token
      */
