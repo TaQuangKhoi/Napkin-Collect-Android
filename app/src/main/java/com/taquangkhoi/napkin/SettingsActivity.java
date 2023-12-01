@@ -1,4 +1,4 @@
-package com.example.napkin;
+package com.taquangkhoi.napkin;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.taquangkhoi.napkin.R;
 
 public class SettingsActivity extends AppCompatActivity {
     SharedPreferences savedSettings;

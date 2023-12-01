@@ -1,9 +1,6 @@
-package com.example.napkin;
+package com.taquangkhoi.napkin;
 
 import android.util.Log;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 

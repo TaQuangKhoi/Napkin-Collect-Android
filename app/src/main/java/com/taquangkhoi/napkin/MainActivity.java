@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.napkin.R;
-import com.example.napkin.SendThought;
-import com.example.napkin.SettingsActivity;
+import com.taquangkhoi.napkin.R;
+import com.taquangkhoi.napkin.SendThought;
+import com.taquangkhoi.napkin.SettingsActivity;
 
 import java.util.ArrayList;
 

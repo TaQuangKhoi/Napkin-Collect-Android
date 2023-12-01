@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.napkin.napkin"
+        applicationId "com.taquangkhoi.napkin.collect"
         minSdk 22
         targetSdk 32
         versionCode 1
@@ -28,7 +28,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.example.napkin'
+    namespace 'com.taquangkhoi.napkin'
 }
 
 dependencies {
