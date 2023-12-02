@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences savedSettings;
 
-    SendThought sendThought = new SendThought();
 
     private static final String TAG = "Napkin MainActivity";
 
@@ -90,12 +89,14 @@ public class MainActivity extends AppCompatActivity {
             if (sharedUrl != null) {
                 etSourceUrl.setText(sharedUrl);
             }
-            sendThought.SendThought_OkHttp(
+
+            SendThoughtThread sendThoughtThread = new SendThoughtThread(
                     email,
                     token,
-                    sharedText,
-                    ""
+                    etThought.getText().toString(),
+                    etSourceUrl.getText().toString()
             );
+            sendThoughtThread.start();
         }
     }
 
@@ -150,24 +151,16 @@ public class MainActivity extends AppCompatActivity {
     private void initBtnSend() {
         btnSend.setOnClickListener(view -> {
             Log.d(TAG, "initBtnSend: Clicked");
+
             // new thread to send the thought to the server
-
-            SendThoughtThread sendThoughtThread = new SendThoughtThread();
+            SendThoughtThread sendThoughtThread = new SendThoughtThread(
+                    email,
+                    token,
+                    etThought.getText().toString(),
+                    etSourceUrl.getText().toString()
+            );
             sendThoughtThread.start();
-
-            // Check if the device is connected to the Internet
-//            if (!isInternetAvailable(this)) {
-//                Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(this, "Internet Connection", Toast.LENGTH_SHORT).show();
-//            }
-
-//            sendThought.SendThought_OkHttp(
-//                    email,
-//                    token,
-//                    etThought.getText().toString(),
-//                    etSourceUrl.getText().toString()
-//            );
+            Toast.makeText(this, "Sent", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -181,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             etSourceUrl.setText("");
         });
     }
-
 
 
     // The end of MainActivity class

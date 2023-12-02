@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.MediaType;
 
 public class SendThought {
 
@@ -18,6 +19,8 @@ public class SendThought {
     private final OkHttpClient client = new OkHttpClient();
 
     private static final String POST_URL = "https://app.napkin.one/api/createThought";
+
+    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     public SendThought() {
     }
@@ -32,48 +35,29 @@ public class SendThought {
 
         try {
             // Body of POST
-            RequestBody formBody = new FormBody.Builder()
-                    .add("email", email)
-                    .add("token", token)
-                    .add("thought", thought)
-                    .add("sourceUrl", sourceUrl)
-                    .build();
+            RequestBody body = RequestBody.create(bodyJson(
+                    email,
+                    token,
+                    thought,
+                    sourceUrl
+            ), JSON);
 
             // The request to send (connect with the body now!)
             Request request = new Request.Builder()
                     .url(POST_URL)
                     .header("Accept", "application/json")
                     .addHeader("Content-Type", "application/json")
-                    .method("POST", formBody)
+                    .post(body)
                     .build();
 
             Call call = client.newCall(request);
 
-            Response response = call.execute();
-
-            Log.d(TAG, "SendThought_OkHttp: Response: " + response.toString());
-
-            assert response.body() != null : "Response body is null";
-
-//            client.newCall(request).enqueue(new Callback() {
-//                @Override
-//                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                @Override
-//                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-//                    if (response.isSuccessful()) {
-//                        final String myResponse = response.body().string();
-//                        toast.show();
-//                        Log.d(TAG, "Response " + myResponse);
-//                    } else {
-//                        Log.d(TAG, "Response Not Successful");
-//                    }
-//                }
-//            });
-
-//            Toast.makeText(this, "Sent ✅", Toast.LENGTH_SHORT).show();
+            try (Response response = call.execute()) {
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "SendThought_OkHttp: Response is not successful");
+                    return response.toString();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
@@ -130,6 +114,15 @@ public class SendThought {
 
     public void SendThought_HttpURL(String email, String token, String thought, String sourceUrl) throws IOException {
 
+    }
+
+    String bodyJson(String email, String token, String thought, String sourceUrl) {
+        return "{\n" +
+                "    \"email\": \"" + email + "\",\n" +
+                "    \"token\": \"" + token + "\",\n" +
+                "    \"thought\": \"" + thought + "\",\n" +
+                "    \"sourceUrl\": \"" + sourceUrl + "\"\n" +
+                "}";
     }
 
 }
