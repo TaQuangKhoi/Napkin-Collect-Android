@@ -1,12 +1,10 @@
 package com.taquangkhoi.napkin;
 
-import android.content.Context;
+import static com.taquangkhoi.napkin.utils.testInternetConnection.*;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -16,11 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.taquangkhoi.napkin.R;
-import com.taquangkhoi.napkin.SendThought;
-import com.taquangkhoi.napkin.SettingsActivity;
+import com.taquangkhoi.napkin.utils.SendThought;
+import com.taquangkhoi.napkin.utils.SendThoughtThread;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences savedSettings;
 
-    SendThought sendThought = new SendThought();
 
     private static final String TAG = "Napkin MainActivity";
 
@@ -94,12 +89,14 @@ public class MainActivity extends AppCompatActivity {
             if (sharedUrl != null) {
                 etSourceUrl.setText(sharedUrl);
             }
-            sendThought.SendThought_OkHttp(
+
+            SendThoughtThread sendThoughtThread = new SendThoughtThread(
                     email,
                     token,
-                    sharedText,
-                    ""
+                    etThought.getText().toString(),
+                    etSourceUrl.getText().toString()
             );
+            sendThoughtThread.start();
         }
     }
 
@@ -153,19 +150,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initBtnSend() {
         btnSend.setOnClickListener(view -> {
-            // Check if the device is connected to the Internet
-            if (!isInternetAvailable()) {
-                Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Internet Connection", Toast.LENGTH_SHORT).show();
-            }
+            Log.d(TAG, "initBtnSend: Clicked");
 
-//            sendThought.SendThought_OkHttp(
-//                    email,
-//                    token,
-//                    etThought.getText().toString(),
-//                    etSourceUrl.getText().toString()
-//            );
+            // new thread to send the thought to the server
+            SendThoughtThread sendThoughtThread = new SendThoughtThread(
+                    email,
+                    token,
+                    etThought.getText().toString(),
+                    etSourceUrl.getText().toString()
+            );
+            sendThoughtThread.start();
+            Toast.makeText(this, "Sent", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -180,56 +175,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Check if the device is connected to the Internet
-     */
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//            cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        }
-
-        assert cm != null;
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
-    }
-
-    public boolean isInternetAvailable() {
-        try {
-            InetAddress ipAddr = InetAddress.getByName("google.com");
-            //You can replace it with your name
-            return !ipAddr.equals("");
-
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static boolean isInternetAvailable(Context context) {
-        boolean result = false;
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivityManager != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-                if (activeNetwork != null) {
-                    if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI ||
-                            activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                        result = true;
-                    }
-                }
-            } else {
-                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-                if (activeNetwork != null) {
-                    if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI ||
-                            activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                        result = true;
-                    }
-                }
-            }
-        }
-        return result;
-    }
 
     // The end of MainActivity class
 }
