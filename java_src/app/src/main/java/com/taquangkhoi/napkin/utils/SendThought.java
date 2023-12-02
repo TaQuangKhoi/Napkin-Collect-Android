@@ -1,4 +1,4 @@
-package com.taquangkhoi.napkin;
+package com.taquangkhoi.napkin.utils;
 
 import android.util.Log;
 

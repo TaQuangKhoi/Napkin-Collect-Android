@@ -1,6 +1,6 @@
 package com.taquangkhoi.napkin;
 
-import static com.taquangkhoi.napkin.testInternetConnection.*;
+import static com.taquangkhoi.napkin.utils.testInternetConnection.*;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.taquangkhoi.napkin.utils.SendThought;
 
 import java.util.ArrayList;
 
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(view -> {
             Log.d(TAG, "initBtnSend: Clicked");
             // new thread to send the thought to the server
-            
+
 
             testHttpURLConnection();
             // Check if the device is connected to the Internet
