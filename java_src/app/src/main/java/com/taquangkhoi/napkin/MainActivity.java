@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.taquangkhoi.napkin.utils.SendThought;
+import com.taquangkhoi.napkin.utils.SendThoughtThread;
 
 import java.util.ArrayList;
 
@@ -151,8 +152,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "initBtnSend: Clicked");
             // new thread to send the thought to the server
 
+            SendThoughtThread sendThoughtThread = new SendThoughtThread();
+            sendThoughtThread.start();
 
-            testHttpURLConnection();
             // Check if the device is connected to the Internet
 //            if (!isInternetAvailable(this)) {
 //                Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
