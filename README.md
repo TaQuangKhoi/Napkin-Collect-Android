@@ -1,6 +1,9 @@
 # Napkin-Collect-Android
 I try to develop a android app to send thought to Napkin.one
 
+## Napkin API Document 
+https://intercom.help/napkin-support/en/articles/6419774-api-creating-thoughts
+
 # Lib
 - I use [OkHttp](https://square.github.io/okhttp/) to send POST request
 
